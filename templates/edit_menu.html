@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Menu</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="content">
+        <div class="grid-container">
+            <h1 class="center-title">Edit Menu</h1>
+    
+            <!-- 左侧容器 -->
+            <div class="container-left">
+                <h2>配菜類和其他類</h2>
+                <div class="left-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>菜品名稱</th>
+                                <th>價格 (元)</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items if item[2] < 45 %}
+                            <tr>
+                                <td>{{ item[1] }}</td>
+                                <td><input type="number" value="{{ item[2] }}" data-id="{{ item[0] }}" class="price-input"></td>
+                                <td><button class="update-btn" data-id="{{ item[0] }}">更新</button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- 右侧容器 -->
+            <div class="container-right">
+                <h2>主菜類</h2>
+                <div class="right-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>菜品名稱</th>
+                                <th>價格 (元)</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items if item[2] >= 45 %}
+                            <tr>
+                                <td>{{ item[1] }}</td>
+                                <td><input type="number" value="{{ item[2] }}" data-id="{{ item[0] }}" class="price-input"></td>
+                                <td><button class="update-btn" data-id="{{ item[0] }}">更新</button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".update-btn").click(function() {
+                var id = $(this).data("id");
+                var price = $(this).closest("tr").find(".price-input").val();
+                $.ajax({
+                    url: "/update_prices",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify([{ "id": id, "price": price }]),
+                    success: function(response) {
+                        if (response.success) {
+                            alert("價格更新成功！");
+                        } else {
+                            alert("價格更新失敗：" + response.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("價格更新失敗：" + error);
+                    }
+                });
+            });
+        });
+    </script>
+
+    {% include 'footer.html' %}
+    
+</body>
+</html>

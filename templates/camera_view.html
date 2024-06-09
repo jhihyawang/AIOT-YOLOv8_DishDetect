@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish Detect</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <!-- header.html -->
+    {% include 'header.html' %}
+    
+
+    <script src="/static/script_camera_stream.js"></script>
+    <div class="content">
+    <div class="grid-container">
+        <div class="container-left">
+            <h1>Camera View</h1>
+            <p id="timeDiv"></p>
+            <canvas class="camera-canvas" id="main_camera" style="border:1px solid #000000;"></canvas>
+        </div>
+        <div class="container-right">
+            <h1>Dish Info</h1>
+            <div class="right-container">
+            <table class="table-container">
+                <thead>
+                    <tr>
+                        <th class="small-text">品項</th>
+                        <th class="small-text">價格</th>
+                        <th class="small-text">熱量 (卡路里)</th>
+                        <th class="small-text">蛋白質 (克)</th>
+                        <th class="small-text">脂肪 (克)</th>
+                        <th class="small-text">碳水化合物 (克)</th>
+                        <th class="small-text">膳食纖維 (克)</th>
+                    </tr>
+                </thead>
+                <tbody id="predictContainer">
+                <!-- 这里用来显示识别到的餐点种类 -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7" class="total-info">總價: <span id="totalPrice"></span> 元</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="total-info" id="totalNutrition">
+                            <p>總營養成分:</p>
+                            <ul>
+                                <li>熱量: <span id="totalCalories"></span> 卡路里</li>
+                                <li>蛋白質: <span id="totalProtein"></span> 克</li>
+                                <li>脂肪: <span id="totalFat"></span> 克</li>
+                                <li>碳水化合物: <span id="totalCarbohydrates"></span> 克</li>
+                                <li>膳食纖維: <span id="totalFiber"></span> 克</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- footer.html -->
+    {% include 'footer.html' %}
+
+</body>
+</html>

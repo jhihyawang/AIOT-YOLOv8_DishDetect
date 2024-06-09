@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NCHU Cafeteria</title>    
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    
+    <body>
+        <!-- 导航栏 -->
+        {% include 'header.html' %}
+    
+    <!-- 主要内容区 -->
+    <div class="content margin-top-300">
+        <div class="grid-container">
+                    <!-- 轮播图 -->
+        <div id="cover" class="coverflow">
+            <a href="#"><img src="/static/veg.jpeg" alt="veg" class="slide"></a>
+            <a href="#"><img src="/static/meat.jpeg" alt="meat" class="slide"></a>
+        </div>
+            <!-- 欢迎词 -->
+        <h1 class="center-title">Welcome to NCHU Cafeteria</h1>
+        <p class="center-text">點選以下按鈕開始進行偵測並自動結算金額和計算營養成分</p>
+        <!-- 开始检测按钮 -->
+        <div class="center-title">
+            <a href="/detect_and_calculate" class="button">Start Detecting</a>
+        </div>
+            <h1 class="center-title">Menu</h1>
+            <!-- 左侧容器 -->
+            <div class="container-left">
+                <h2>配菜類和其他類</h2>
+                <div class="left-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="small-text">品項</th>
+                                <th class="small-text">價格</th>
+                                <th class="small-text">熱量 (卡路里)</th>
+                                <th class="small-text">蛋白質 (克)</th>
+                                <th class="small-text">脂肪 (克)</th>
+                                <th class="small-text">碳水化合物 (克)</th>
+                                <th class="small-text">膳食纖維 (克)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items if item[1] < 45 %}
+                            <tr>
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1] }}</td>
+                                <td>{{ item[2] }}</td>
+                                <td>{{ item[3] }}</td>
+                                <td>{{ item[4] }}</td>
+                                <td>{{ item[5] }}</td>
+                                <td>{{ item[6] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- 右侧容器 -->
+            <div class="container-right">
+                <h2>主菜類</h2>
+                <div class="right-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="small-text">品項</th>
+                                <th class="small-text">價格</th>
+                                <th class="small-text">熱量 (卡路里)</th>
+                                <th class="small-text">蛋白質 (克)</th>
+                                <th class="small-text">脂肪 (克)</th>
+                                <th class="small-text">碳水化合物 (克)</th>
+                                <th class="small-text">膳食纖維 (克)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items if item[1] >= 45 %}
+                            <tr>
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1] }}</td>
+                                <td>{{ item[2] }}</td>
+                                <td>{{ item[3] }}</td>
+                                <td>{{ item[4] }}</td>
+                                <td>{{ item[5] }}</td>
+                                <td>{{ item[6] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- 页脚 -->
+        {% include 'footer.html' %}
+        <!-- 引入轮播图插件的 JavaScript 文件 -->
+        <script>
+            var index = 0;
+            var images = ["/static/veg.jpeg", "/static/meat.jpeg"]; // 图片路径数组
+        
+            function carousel() {
+                var img = document.querySelector("#cover img");
+                img.src = images[index];
+                index = (index + 1) % images.length; // 循环索引
+                setTimeout(carousel, 3000); // 切换间隔时间，单位为毫秒
+            }
+        
+            carousel(); // 启动轮播
+        </script>
+    </body>
+</html>
