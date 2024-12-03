@@ -19,13 +19,6 @@
 - 用戶友好界面：自助結帳機具有簡潔易用的用戶界面，方便消費者操作。
 
 
-
-if you want to login
-
-CORRECT_USERNAME = "aiot"
-
-CORRECT_PASSWORD = "8888"
-
 Demo vedio
 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/j24hDV9F7Xw/0.jpg)](https://www.youtube.com/watch?v=j24hDV9F7Xw "NCHU AIOT FINAL PROJECT 2024/06/08 Group8")
